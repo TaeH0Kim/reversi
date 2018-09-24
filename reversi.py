@@ -37,8 +37,7 @@ class Reversi():
                 break
             else:
                 opposite_color_count += 1
-        if self.player == self.board[number_index][i] and \
-            opposite_color_count > 1:
+        if self.player == self.board[number_index][i] and opposite_color_count > 1:
             return True
 
         return False
