@@ -41,7 +41,7 @@ class Reversi():
                 break
             else:
                 opposite_color_count += 1
-        if self.player == self.board[number_index][i] and opposite_color_count > 1:
+        if self.player == self.board[number_index][i] and opposite_color_count >= 1:
             return True
 
         return False
@@ -103,6 +103,19 @@ class TestReversi(unittest.TestCase):
         [None, None, None, None, None, None, None, None]
         ]
         self.assertTrue(r.does_east_traversal_allow_valid_move('black', 'B5'))
+
+        r = Reversi()
+        r.board = [
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, 'black', None, None, None, None],
+        [None, None, None, 'black', 'black', None, None, None],
+        [None, None, None, 'white', 'black', None, None, None],
+        [None, None, None, None, 'black', None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None]
+        ]
+        self.assertTrue(r.does_east_traversal_allow_valid_move('black', 'C5'))
 
         r = Reversi()
         r.board = [
