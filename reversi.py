@@ -46,6 +46,25 @@ class Reversi():
 
         return False
 
+    def does_west_traversal_allow_valid_move(self, color, position):
+        letter_index = self.__letter_to_index(position[0])
+        number_index = self.__number_to_index(position[1])
+
+        if letter_index <= 0:
+            return False
+
+        opposite_color_count = 0
+        for i in range(letter_index-1, -1, -1):
+            if self.player == self.board[number_index][i]:
+                break
+            elif self.board[number_index][i] != None:
+                opposite_color_count += 1
+
+        if self.player == self.board[number_index][i] and opposite_color_count >= 1:
+            return True
+
+        return False
+
     def __number_to_index(self, number):
         return int(number) - 1
 
@@ -143,6 +162,59 @@ class TestReversi(unittest.TestCase):
         ]
         self.assertFalse(r.does_east_traversal_allow_valid_move('black', 'H2'))
 
+
+    def test_does_west_traversal_allow_valid_move(self):
+        r = Reversi()
+        r.board = [
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, 'white', 'black', None, None, None],
+        [None, None, None, 'black', 'white', None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None]
+        ]
+        self.assertTrue(r.does_west_traversal_allow_valid_move('black', 'F5'))
+
+        r = Reversi()
+        r.board = [
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, 'white', 'black', None, None, None],
+        [None, None, None, 'black', 'white', None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None]
+        ]
+        self.assertFalse(r.does_west_traversal_allow_valid_move('black', 'F4'))
+
+        r = Reversi()
+        r.board = [
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, 'white', 'black', None, None, None],
+        [None, None, None, 'black', 'white', None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None]
+        ]
+        self.assertFalse(r.does_west_traversal_allow_valid_move('black', 'A8'))
+
+        r = Reversi()
+        r.board = [
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, 'white', 'black', None, None, None],
+        [None, None, None, 'black', 'white', None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None]
+        ]
+        self.assertFalse(r.does_west_traversal_allow_valid_move('black', 'G4'))
 
 if __name__ == '__main__':
     unittest.main()
