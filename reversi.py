@@ -51,7 +51,7 @@ class Reversi():
         for i in range(column_index+1, 8):
             if color == self.board[chr(i + 65)][row]:
                 break
-            else:
+            elif self.board[chr(i + 65)][row] != '-':
                 opposite_color_count += 1
         if color == self.board[chr(i + 65)][row] and opposite_color_count >= 1:
             return True
@@ -144,6 +144,18 @@ class TestReversi(unittest.TestCase):
             - - - - - - - -
             ''')
         self.assertFalse(r.does_east_traversal_allow_valid_move('b', 'H2'))
+
+        r = Reversi('''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - b w - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            ''')
+        self.assertFalse(r.does_east_traversal_allow_valid_move('b', 'B5'))
 
     def test_does_west_traversal_allow_valid_move(self):
         r = Reversi('''
