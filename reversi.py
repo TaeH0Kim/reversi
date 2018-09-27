@@ -1,17 +1,18 @@
 import unittest
 
+
 class Reversi():
 
     def __init__(self):
         self.board = [
-        [None] * 8,
-        [None] * 8,
-        [None] * 8,
-        [None, None, None, 'white', 'black', None, None, None],
-        [None, None, None, 'black', 'white', None, None, None],
-        [None] * 8,
-        [None] * 8,
-        [None] * 8
+            [None] * 8,
+            [None] * 8,
+            [None] * 8,
+            [None, None, None, 'white', 'black', None, None, None],
+            [None, None, None, 'black', 'white', None, None, None],
+            [None] * 8,
+            [None] * 8,
+            [None] * 8
         ]
         self.player = 'black'
 
@@ -41,7 +42,8 @@ class Reversi():
                 break
             else:
                 opposite_color_count += 1
-        if self.player == self.board[number_index][i] and opposite_color_count >= 1:
+        if (self.player == self.board[number_index][i] and
+                opposite_color_count >= 1):
             return True
 
         return False
@@ -57,10 +59,11 @@ class Reversi():
         for i in range(letter_index-1, -1, -1):
             if self.player == self.board[number_index][i]:
                 break
-            elif self.board[number_index][i] != None:
+            elif self.board[number_index][i] is not None:
                 opposite_color_count += 1
 
-        if self.player == self.board[number_index][i] and opposite_color_count >= 1:
+        if (self.player == self.board[number_index][i] and
+                opposite_color_count >= 1):
             return True
 
         return False
@@ -70,6 +73,7 @@ class Reversi():
 
     def __letter_to_index(self, letter):
         return ord(letter.lower()) - 97
+
 
 class TestReversi(unittest.TestCase):
 
@@ -85,134 +89,133 @@ class TestReversi(unittest.TestCase):
         r = Reversi()
         r.move('A1')
         expected = [
-        ['black', None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, 'white', 'black', None, None, None],
-        [None, None, None, 'black', 'white', None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None]
+            ['black', None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, 'white', 'black', None, None, None],
+            [None, None, None, 'black', 'white', None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
         ]
         self.assertEqual(expected, r.board)
 
         r.move('B7')
         expected = [
-        ['black', None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, 'white', 'black', None, None, None],
-        [None, None, None, 'black', 'white', None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, 'white', None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None]
+            ['black', None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, 'white', 'black', None, None, None],
+            [None, None, None, 'black', 'white', None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, 'white', None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
         ]
         self.assertEqual(expected, r.board)
 
     def test_does_east_traversal_allow_valid_move(self):
         r = Reversi()
         r.board = [
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, 'black', None, None, None, None],
-        [None, None, None, 'black', 'black', None, None, None],
-        [None, None, 'white', 'white', 'black', None, None, None],
-        [None, None, None, None, 'black', None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, 'black', None, None, None, None],
+            [None, None, None, 'black', 'black', None, None, None],
+            [None, None, 'white', 'white', 'black', None, None, None],
+            [None, None, None, None, 'black', None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
         ]
         self.assertTrue(r.does_east_traversal_allow_valid_move('black', 'B5'))
 
         r = Reversi()
         r.board = [
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, 'black', None, None, None, None],
-        [None, None, None, 'black', 'black', None, None, None],
-        [None, None, None, 'white', 'black', None, None, None],
-        [None, None, None, None, 'black', None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, 'black', None, None, None, None],
+            [None, None, None, 'black', 'black', None, None, None],
+            [None, None, None, 'white', 'black', None, None, None],
+            [None, None, None, None, 'black', None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
         ]
         self.assertTrue(r.does_east_traversal_allow_valid_move('black', 'C5'))
 
         r = Reversi()
         r.board = [
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, 'black', None, None, None, None],
-        [None, None, None, 'black', 'black', None, None, None],
-        [None, None, 'white', 'white', 'white', None, None, None],
-        [None, None, None, None, 'black', None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, 'black', None, None, None, None],
+            [None, None, None, 'black', 'black', None, None, None],
+            [None, None, 'white', 'white', 'white', None, None, None],
+            [None, None, None, None, 'black', None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
         ]
         self.assertFalse(r.does_east_traversal_allow_valid_move('black', 'B5'))
 
         r = Reversi()
         r.board = [
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, 'black', None, None, None, None],
-        [None, None, None, 'black', 'black', None, None, None],
-        [None, None, 'white', 'white', 'white', None, None, None],
-        [None, None, None, None, 'black', None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, 'black', None, None, None, None],
+            [None, None, None, 'black', 'black', None, None, None],
+            [None, None, 'white', 'white', 'white', None, None, None],
+            [None, None, None, None, 'black', None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
         ]
         self.assertFalse(r.does_east_traversal_allow_valid_move('black', 'H2'))
-
 
     def test_does_west_traversal_allow_valid_move(self):
         r = Reversi()
         r.board = [
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, 'white', 'black', None, None, None],
-        [None, None, None, 'black', 'white', None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, 'white', 'black', None, None, None],
+            [None, None, None, 'black', 'white', None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
         ]
         self.assertTrue(r.does_west_traversal_allow_valid_move('black', 'F5'))
 
         r = Reversi()
         r.board = [
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, 'white', 'black', None, None, None],
-        [None, None, None, 'black', 'white', None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, 'white', 'black', None, None, None],
+            [None, None, None, 'black', 'white', None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
         ]
         self.assertFalse(r.does_west_traversal_allow_valid_move('black', 'F4'))
 
         r = Reversi()
         r.board = [
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, 'white', 'black', None, None, None],
-        [None, None, None, 'black', 'white', None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, 'white', 'black', None, None, None],
+            [None, None, None, 'black', 'white', None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
         ]
         self.assertFalse(r.does_west_traversal_allow_valid_move('black', 'A8'))
 
         r = Reversi()
         r.board = [
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, 'white', 'black', None, None, None],
-        [None, None, None, 'black', 'white', None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, 'white', 'black', None, None, None],
+            [None, None, None, 'black', 'white', None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]
         ]
         self.assertFalse(r.does_west_traversal_allow_valid_move('black', 'G4'))
 
