@@ -78,6 +78,26 @@ class Reversi():
 
         return False
 
+    def does_north_traversal_allow_valid_move(self, color, position):
+        column = position[0]
+        column_index = ord(column) - 65
+        row = int(position[1])
+
+        if row <= 1:
+            return False
+
+        opposite_color_count = 0
+        for i in range(row-1, 0, -1):
+            if color == self.board[column][i]:
+                break
+            elif self.board[column][i] != '-':
+                opposite_color_count += 1
+
+        if color == self.board[column][i] and opposite_color_count >= 1:
+            return True
+
+        return False
+
 
 class TestReversi(unittest.TestCase):
 
@@ -205,6 +225,68 @@ class TestReversi(unittest.TestCase):
             - - - - - - - -
             ''')
         self.assertFalse(r.does_west_traversal_allow_valid_move('b', 'G4'))
+
+    def test_does_north_traversal_allow_valid_move(self):
+
+        r = Reversi('''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - b w - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            ''')
+        self.assertFalse(r.does_north_traversal_allow_valid_move('b', 'E1'))
+
+        r = Reversi('''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - b w - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            ''')
+        self.assertTrue(r.does_north_traversal_allow_valid_move('b', 'E6'))
+
+        r = Reversi('''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - b w - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            ''')
+        self.assertFalse(r.does_north_traversal_allow_valid_move('b', 'D6'))
+
+        r = Reversi('''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - b w - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            ''')
+        self.assertFalse(r.does_north_traversal_allow_valid_move('b', 'D7'))
+
+        r = Reversi('''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - b w - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            ''')
+        self.assertFalse(r.does_north_traversal_allow_valid_move('b', 'G5'))
 
 if __name__ == '__main__':
     unittest.main()
