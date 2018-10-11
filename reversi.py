@@ -68,7 +68,8 @@ class Reversi():
 
         opposite_color_count = 0
         for i in range(column_index-1, -1, -1):
-            if color == self.board[chr(i + 65)][row]:
+            if (color == self.board[chr(i + 65)][row] or
+                    self.board[chr(i + 65)][row] == '-'):
                 break
             elif self.board[chr(i + 65)][row] != '-':
                 opposite_color_count += 1
@@ -232,43 +233,22 @@ class TestReversi(unittest.TestCase):
             - - - - - - - -
             - - - - - - - -
             ''')
-        self.assertTrue(r.does_west_traversal_allow_valid_move('b', 'F5'))
+        moves_valid_for_west_traversal = {'F5'}
+        moves_invalid_for_west_traversal = {'A1', 'A2', 'A3', 'A4', 'A5',
+            'A6', 'A7', 'A8', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8',
+            'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'D1', 'D2', 'D3',
+            'D4', 'D5', 'D6', 'D7', 'D8', 'E1', 'E2', 'E3', 'E4', 'E5', 'E6',
+            'E7', 'E8', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'G1',
+            'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'H1', 'H2', 'H3', 'H4',
+            'H5', 'H6', 'H7', 'H8'} - moves_valid_for_west_traversal
 
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_west_traversal_allow_valid_move('b', 'F4'))
+        for move in moves_valid_for_west_traversal:
+            self.assertTrue(r.does_west_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_west_traversal_allow_valid_move('b', 'A8'))
-
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_west_traversal_allow_valid_move('b', 'G4'))
+        for move in moves_invalid_for_west_traversal:
+            self.assertFalse(r.does_west_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
     def test_does_north_traversal_allow_valid_move(self):
 
