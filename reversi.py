@@ -49,7 +49,8 @@ class Reversi():
 
         opposite_color_count = 0
         for i in range(column_index+1, 8):
-            if color == self.board[chr(i + 65)][row]:
+            if (color == self.board[chr(i + 65)][row] or
+                    self.board[chr(i + 65)][row] == '-'):
                 break
             elif self.board[chr(i + 65)][row] != '-':
                 opposite_color_count += 1
@@ -68,7 +69,8 @@ class Reversi():
 
         opposite_color_count = 0
         for i in range(column_index-1, -1, -1):
-            if color == self.board[chr(i + 65)][row]:
+            if (color == self.board[chr(i + 65)][row] or
+                    self.board[chr(i + 65)][row] == '-'):
                 break
             elif self.board[chr(i + 65)][row] != '-':
                 opposite_color_count += 1
@@ -87,7 +89,7 @@ class Reversi():
 
         opposite_color_count = 0
         for i in range(row-1, 0, -1):
-            if color == self.board[column][i]:
+            if color == self.board[column][i] or self.board[column][i] == '-':
                 break
             elif self.board[column][i] != '-':
                 opposite_color_count += 1
@@ -106,7 +108,8 @@ class Reversi():
 
         opposite_color_count = 0
         for i in range(row+1, 9):
-            if color == self.board[column][i]:
+            if (color == self.board[column][i] or
+                    self.board[column][i] == '-'):
                 break
             elif self.board[column][i] != '-':
                 opposite_color_count += 1
@@ -131,7 +134,8 @@ class Reversi():
             row_position -= 1
             column_position += 1
 
-            if color == self.board[chr(column_position + 65)][row_position+1]:
+            if (color == self.board[chr(column_position + 65)][row_position+1] or
+                    self.board[chr(column_position + 65)][row_position+1] == '-'):
                 break
             elif self.board[chr(column_position + 65)][row_position+1] != '-':
                 opposite_color_count += 1
@@ -219,7 +223,22 @@ class TestReversi(unittest.TestCase):
             - - - - - - - -
             - - - - - - - -
             ''')
-        self.assertFalse(r.does_east_traversal_allow_valid_move('b', 'B5'))
+        moves_valid_for_east_traversal = {'C4'}
+        moves_invalid_for_east_traversal = {'A1', 'A2', 'A3', 'A4', 'A5',
+            'A6', 'A7', 'A8', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8',
+            'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'D1', 'D2', 'D3',
+            'D4', 'D5', 'D6', 'D7', 'D8', 'E1', 'E2', 'E3', 'E4', 'E5', 'E6',
+            'E7', 'E8', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'G1',
+            'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'H1', 'H2', 'H3', 'H4',
+            'H5', 'H6', 'H7', 'H8'} - moves_valid_for_east_traversal
+
+        for move in moves_valid_for_east_traversal:
+            self.assertTrue(r.does_east_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
+
+        for move in moves_invalid_for_east_traversal:
+            self.assertFalse(r.does_east_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
     def test_does_west_traversal_allow_valid_move(self):
         r = Reversi('''
@@ -232,43 +251,22 @@ class TestReversi(unittest.TestCase):
             - - - - - - - -
             - - - - - - - -
             ''')
-        self.assertTrue(r.does_west_traversal_allow_valid_move('b', 'F5'))
+        moves_valid_for_west_traversal = {'F5'}
+        moves_invalid_for_west_traversal = {'A1', 'A2', 'A3', 'A4', 'A5',
+            'A6', 'A7', 'A8', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8',
+            'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'D1', 'D2', 'D3',
+            'D4', 'D5', 'D6', 'D7', 'D8', 'E1', 'E2', 'E3', 'E4', 'E5', 'E6',
+            'E7', 'E8', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'G1',
+            'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'H1', 'H2', 'H3', 'H4',
+            'H5', 'H6', 'H7', 'H8'} - moves_valid_for_west_traversal
 
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_west_traversal_allow_valid_move('b', 'F4'))
+        for move in moves_valid_for_west_traversal:
+            self.assertTrue(r.does_west_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_west_traversal_allow_valid_move('b', 'A8'))
-
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_west_traversal_allow_valid_move('b', 'G4'))
+        for move in moves_invalid_for_west_traversal:
+            self.assertFalse(r.does_west_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
     def test_does_north_traversal_allow_valid_move(self):
 
@@ -282,55 +280,22 @@ class TestReversi(unittest.TestCase):
             - - - - - - - -
             - - - - - - - -
             ''')
-        self.assertFalse(r.does_north_traversal_allow_valid_move('b', 'E1'))
+        moves_valid_for_north_traversal = {'E6'}
+        moves_invalid_for_north_traversal = {'A1', 'A2', 'A3', 'A4', 'A5',
+            'A6', 'A7', 'A8', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8',
+            'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'D1', 'D2', 'D3',
+            'D4', 'D5', 'D6', 'D7', 'D8', 'E1', 'E2', 'E3', 'E4', 'E5', 'E6',
+            'E7', 'E8', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'G1',
+            'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'H1', 'H2', 'H3', 'H4',
+            'H5', 'H6', 'H7', 'H8'} - moves_valid_for_north_traversal
 
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertTrue(r.does_north_traversal_allow_valid_move('b', 'E6'))
+        for move in moves_valid_for_north_traversal:
+            self.assertTrue(r.does_north_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_north_traversal_allow_valid_move('b', 'D6'))
-
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_north_traversal_allow_valid_move('b', 'D7'))
-
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_north_traversal_allow_valid_move('b', 'G5'))
+        for move in moves_invalid_for_north_traversal:
+            self.assertFalse(r.does_north_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
     def test_does_south_traversal_allow_valid_move(self):
 
@@ -344,55 +309,22 @@ class TestReversi(unittest.TestCase):
             - - - - - - - -
             - - - - - - - -
             ''')
-        self.assertFalse(r.does_south_traversal_allow_valid_move('b', 'E8'))
+        moves_valid_for_south_traversal = {'D3'}
+        moves_invalid_for_south_traversal = {'A1', 'A2', 'A3', 'A4', 'A5',
+            'A6', 'A7', 'A8', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8',
+            'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'D1', 'D2', 'D3',
+            'D4', 'D5', 'D6', 'D7', 'D8', 'E1', 'E2', 'E3', 'E4', 'E5', 'E6',
+            'E7', 'E8', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'G1',
+            'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'H1', 'H2', 'H3', 'H4',
+            'H5', 'H6', 'H7', 'H8'} - moves_valid_for_south_traversal
 
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertTrue(r.does_south_traversal_allow_valid_move('b', 'D3'))
+        for move in moves_valid_for_south_traversal:
+            self.assertTrue(r.does_south_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_south_traversal_allow_valid_move('b', 'E3'))
-
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_south_traversal_allow_valid_move('b', 'E2'))
-
-        r = Reversi('''
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            ''')
-        self.assertFalse(r.does_south_traversal_allow_valid_move('b', 'G5'))
+        for move in moves_invalid_for_south_traversal:
+            self.assertFalse(r.does_south_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
         r = Reversi('''
             - - - - - - - -
@@ -418,19 +350,44 @@ class TestReversi(unittest.TestCase):
             - - - - - - - -
             - - - - - - - -
             ''')
-        self.assertFalse(r.does_north_east_traversal_allow_valid_move('b', 'G1'))
+        moves_invalid_for_north_east_traversal = {'A1', 'A2', 'A3', 'A4', 'A5',
+            'A6', 'A7', 'A8', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8',
+            'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'D1', 'D2', 'D3',
+            'D4', 'D5', 'D6', 'D7', 'D8', 'E1', 'E2', 'E3', 'E4', 'E5', 'E6',
+            'E7', 'E8', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'G1',
+            'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'H1', 'H2', 'H3', 'H4',
+            'H5', 'H6', 'H7', 'H8'}
+
+        for move in moves_invalid_for_north_east_traversal:
+            self.assertFalse(r.does_north_east_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
         r = Reversi('''
             - - - - - - - -
-            - - - - - - - -
-            - - - - - - - -
-            - - - w b - - -
-            - - - b w - - -
-            - - - - - - - -
+            - - - w - - - -
+            - - w w w w - -
+            - b b w w b - -
+            - - w w w - - -
+            - b w - - - - -
             - - - - - - - -
             - - - - - - - -
             ''')
-        self.assertFalse(r.does_north_east_traversal_allow_valid_move('b', 'H2'))
+        moves_valid_for_north_east_traversal = {'D6'}
+        moves_invalid_for_north_east_traversal = {'A1', 'A2', 'A3', 'A4', 'A5',
+            'A6', 'A7', 'A8', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8',
+            'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'D1', 'D2', 'D3',
+            'D4', 'D5', 'D6', 'D7', 'D8', 'E1', 'E2', 'E3', 'E4', 'E5', 'E6',
+            'E7', 'E8', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'G1',
+            'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'H1', 'H2', 'H3', 'H4',
+            'H5', 'H6', 'H7', 'H8'} - moves_valid_for_north_east_traversal
+
+        for move in moves_valid_for_north_east_traversal:
+            self.assertTrue(r.does_north_east_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
+
+        for move in moves_invalid_for_north_east_traversal:
+            self.assertFalse(r.does_north_east_traversal_allow_valid_move('b', move),
+            "error for position: " + move)
 
         r = Reversi('''
             - - - - - - - -
