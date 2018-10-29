@@ -209,7 +209,7 @@ class Reversi():
         column_position = column_index
         row_position = row_index
         opposite_color_count = 0
-        while column_position > 0 and row_position < 7:
+        while column_position < 7 and row_position < 7:
             row_position += 1
             column_position += 1
 
@@ -625,6 +625,18 @@ class TestReversi(unittest.TestCase):
             "error for position: " + move)
 
     def test_does_south_east_traversal_allow_valid_move(self):
+        r = Reversi('''
+            - - - - - - - -
+            - - b w - - - -
+            - - b w b - - -
+            - - b w b - - -
+            - w b w w w w -
+            w w b b b - - -
+            - - b b - - - -
+            - - - b - - - -
+            ''')
+        self.assertTrue(r.does_south_east_traversal_allow_valid_move('b', 'A4'))
+
         r = Reversi('''
             - - - - - - - -
             - - - - - - - -
