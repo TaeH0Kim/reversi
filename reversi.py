@@ -244,9 +244,9 @@ class TestReversi(unittest.TestCase):
     def test_move_changes_player(self):
         r = Reversi()
         self.assertEqual(r.player, 'b')
-        r.move("A1")
+        r.move('A1')
         self.assertEqual(r.player, 'w')
-        r.move("A2")
+        r.move('A2')
         self.assertEqual(r.player, 'b')
 
     def test_move_places_piece_on_board(self):
@@ -326,11 +326,11 @@ class TestReversi(unittest.TestCase):
 
         for move in moves_valid_for_east_traversal:
             self.assertTrue(r.does_east_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in moves_invalid_for_east_traversal:
             self.assertFalse(r.does_east_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
     def test_does_west_traversal_allow_valid_move(self):
         r = Reversi('''
@@ -354,11 +354,11 @@ class TestReversi(unittest.TestCase):
 
         for move in moves_valid_for_west_traversal:
             self.assertTrue(r.does_west_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in moves_invalid_for_west_traversal:
             self.assertFalse(r.does_west_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
     def test_does_north_traversal_allow_valid_move(self):
 
@@ -383,11 +383,11 @@ class TestReversi(unittest.TestCase):
 
         for move in moves_valid_for_north_traversal:
             self.assertTrue(r.does_north_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in moves_invalid_for_north_traversal:
             self.assertFalse(r.does_north_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
     def test_does_south_traversal_allow_valid_move(self):
 
@@ -412,11 +412,11 @@ class TestReversi(unittest.TestCase):
 
         for move in moves_valid_for_south_traversal:
             self.assertTrue(r.does_south_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in moves_invalid_for_south_traversal:
             self.assertFalse(r.does_south_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         r = Reversi('''
             - - - - - - - -
@@ -452,7 +452,7 @@ class TestReversi(unittest.TestCase):
 
         for move in moves_invalid_for_north_east_traversal:
             self.assertFalse(r.does_north_east_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         r = Reversi('''
             - - - - - - - -
@@ -475,11 +475,11 @@ class TestReversi(unittest.TestCase):
 
         for move in moves_valid_for_north_east_traversal:
             self.assertTrue(r.does_north_east_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in moves_invalid_for_north_east_traversal:
             self.assertFalse(r.does_north_east_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         r = Reversi('''
             - - - - - - - -
@@ -562,7 +562,7 @@ class TestReversi(unittest.TestCase):
 
         for move in moves_invalid_for_north_west_traversal:
             self.assertFalse(r.does_north_west_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         r = Reversi('''
             - - - - - - - -
@@ -585,11 +585,11 @@ class TestReversi(unittest.TestCase):
 
         for move in moves_valid_for_north_west_traversal:
             self.assertTrue(r.does_north_west_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in moves_invalid_for_north_west_traversal:
             self.assertFalse(r.does_north_west_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
     def test_does_south_west_traversal_allow_valid_move(self):
         r = Reversi('''
@@ -611,7 +611,7 @@ class TestReversi(unittest.TestCase):
             'H5', 'H6', 'H7', 'H8'}
         for move in moves_invalid_for_south_west_traversal:
             self.assertFalse(r.does_south_west_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
         r = Reversi('''
             - - - - - - - -
             - - - - - - - -
@@ -632,10 +632,10 @@ class TestReversi(unittest.TestCase):
             'H5', 'H6', 'H7', 'H8'} - moves_valid_for_south_west_traversal
         for move in moves_valid_for_south_west_traversal:
             self.assertTrue(r.does_south_west_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
         for move in moves_invalid_for_south_west_traversal:
             self.assertFalse(r.does_south_west_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
     def test_does_south_east_traversal_allow_valid_move(self):
         r = Reversi('''
@@ -670,7 +670,7 @@ class TestReversi(unittest.TestCase):
 
         for move in moves_invalid_for_south_east_traversal:
             self.assertFalse(r.does_south_east_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         r = Reversi('''
             - - - - - - - -
@@ -693,11 +693,11 @@ class TestReversi(unittest.TestCase):
 
         for move in moves_valid_for_south_east_traversal:
             self.assertTrue(r.does_south_east_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in moves_invalid_for_south_east_traversal:
             self.assertFalse(r.does_south_east_traversal_allow_valid_move('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
     def test_is_move_valid(self):
         r = Reversi('''
@@ -724,11 +724,11 @@ class TestReversi(unittest.TestCase):
         self.assertTrue(r.is_move_valid('b', 'A4'))
         for move in valid_moves:
             self.assertTrue(r.is_move_valid('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in invalid_moves:
             self.assertFalse(r.is_move_valid('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         r = Reversi('''
             - - - - - - - -
@@ -753,11 +753,11 @@ class TestReversi(unittest.TestCase):
 
         for move in valid_moves:
             self.assertTrue(r.is_move_valid('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in invalid_moves:
             self.assertFalse(r.is_move_valid('b', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         r = Reversi('''
             - - - - - w - -
@@ -782,11 +782,11 @@ class TestReversi(unittest.TestCase):
 
         for move in valid_moves:
             self.assertTrue(r.is_move_valid('w', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in invalid_moves:
             self.assertFalse(r.is_move_valid('w', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         r = Reversi('''
             - - - - - - - -
@@ -810,11 +810,11 @@ class TestReversi(unittest.TestCase):
 
         for move in valid_moves:
             self.assertTrue(r.is_move_valid('w', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
         for move in invalid_moves:
             self.assertFalse(r.is_move_valid('w', move),
-            "error for position: " + move)
+            'error for position: ' + move)
 
 if __name__ == '__main__':
     unittest.main()
