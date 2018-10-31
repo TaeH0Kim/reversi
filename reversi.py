@@ -250,6 +250,17 @@ class TestReversi(unittest.TestCase):
             'G6', 'G7', 'G8', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8'
             }
 
+    def assert_only_valid_moves(self, game, color, valid_moves):
+        for move in valid_moves:
+            self.assertTrue(game.is_move_valid(color, move),
+            'error for position: ' + move)
+
+        invalid_moves = self.all_moves - valid_moves
+        for move in invalid_moves:
+            self.assertFalse(game.is_move_valid(color, move),
+            'error for position: ' + move)
+
+
     def test_move_changes_player(self):
         r = Reversi()
         self.assertEqual(r.player, 'b')
@@ -650,19 +661,8 @@ class TestReversi(unittest.TestCase):
             - - b b - - - -
             - - - b - - - -
             ''')
-
-        valid_moves = {'A4', 'A5', 'A7', 'C1', 'D1', 'E1', 'E2', 'F4', 'F6',
-            'G4', 'G6', 'H5'}
-        invalid_moves = self.all_moves - valid_moves
-
-        self.assertTrue(r.is_move_valid('b', 'A4'))
-        for move in valid_moves:
-            self.assertTrue(r.is_move_valid('b', move),
-            'error for position: ' + move)
-
-        for move in invalid_moves:
-            self.assertFalse(r.is_move_valid('b', move),
-            'error for position: ' + move)
+        self.assert_only_valid_moves(r, 'b', {'A4', 'A5', 'A7', 'C1', 'D1',
+            'E1', 'E2', 'F4', 'F6', 'G4', 'G6', 'H5'})
 
         r = Reversi('''
             - - - - - - - -
@@ -674,18 +674,8 @@ class TestReversi(unittest.TestCase):
             - - - - - - - -
             - - - - - - - -
             ''')
-
-        valid_moves = {'B2', 'B3', 'B4', 'D1', 'D7', 'F1', 'F2', 'F4', 'F6',
-            'F7', 'G1', 'H1'}
-        invalid_moves = self.all_moves - valid_moves
-
-        for move in valid_moves:
-            self.assertTrue(r.is_move_valid('b', move),
-            'error for position: ' + move)
-
-        for move in invalid_moves:
-            self.assertFalse(r.is_move_valid('b', move),
-            'error for position: ' + move)
+        self.assert_only_valid_moves(r, 'b', {'B2', 'B3', 'B4', 'D1', 'D7',
+            'F1', 'F2', 'F4', 'F6', 'F7', 'G1', 'H1'})
 
         r = Reversi('''
             - - - - - w - -
@@ -698,17 +688,8 @@ class TestReversi(unittest.TestCase):
             - - - b b - - -
             ''')
 
-        valid_moves = {'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'C8', 'D2',
-            'F2', 'F3', 'F7', 'F8', 'G6', 'G7'}
-        invalid_moves = self.all_moves - valid_moves
-
-        for move in valid_moves:
-            self.assertTrue(r.is_move_valid('w', move),
-            'error for position: ' + move)
-
-        for move in invalid_moves:
-            self.assertFalse(r.is_move_valid('w', move),
-            'error for position: ' + move)
+        self.assert_only_valid_moves(r, 'w', {'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'C8', 'D2',
+            'F2', 'F3', 'F7', 'F8', 'G6', 'G7'})
 
         r = Reversi('''
             - - - - - - - -
@@ -720,17 +701,8 @@ class TestReversi(unittest.TestCase):
             - - - w b - - -
             - - w - b - - -
             ''')
-
-        valid_moves = {'C6', 'C7', 'D8', 'F7', 'F8', 'G4', 'G6', 'H4', 'H6'}
-        invalid_moves = self.all_moves - valid_moves
-
-        for move in valid_moves:
-            self.assertTrue(r.is_move_valid('w', move),
-            'error for position: ' + move)
-
-        for move in invalid_moves:
-            self.assertFalse(r.is_move_valid('w', move),
-            'error for position: ' + move)
+        self.assert_only_valid_moves(r, 'w', {'C6', 'C7', 'D8', 'F7', 'F8',
+            'G4', 'G6', 'H4', 'H6'})
 
 if __name__ == '__main__':
     unittest.main()
