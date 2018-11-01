@@ -27,10 +27,10 @@ class Reversi():
                 'west':       {'row_increment':  0, 'column_increment': -1},
                 'north':      {'row_increment': -1, 'column_increment':  0},
                 'south':      {'row_increment':  1, 'column_increment':  0},
-                'north-east': {'row_increment': -1, 'column_increment':  1},
-                'north-west': {'row_increment': -1, 'column_increment': -1},
-                'south-west': {'row_increment':  1, 'column_increment': -1},
-                'south-east': {'row_increment':  1, 'column_increment':  1},
+                'north_east': {'row_increment': -1, 'column_increment':  1},
+                'north_west': {'row_increment': -1, 'column_increment': -1},
+                'south_west': {'row_increment':  1, 'column_increment': -1},
+                'south_east': {'row_increment':  1, 'column_increment':  1},
             }
 
     def move(self, position):
@@ -84,11 +84,11 @@ class Reversi():
                 direction == 'west'       and col <= 0 or
                 direction == 'north'      and row <= 1 or
                 direction == 'south'      and row >= 7 or
-                direction == 'north-east' and (col >= 7 or row <= 0)  or
-                direction == 'north-west' and (col <= 0 or row <= 0)  or
-                direction == 'south-east' and (col >= 7 or row >= 7))
+                direction == 'north_east' and (col >= 7 or row <= 0)  or
+                direction == 'north_west' and (col <= 0 or row <= 0)  or
+                direction == 'south_east' and (col >= 7 or row >= 7))
 
-    def does_east_traversal_allow_valid_move(self, direction, color, position):
+    def is_traversal_valid_for(self, direction, color, position):
         column_index = ord(position[0]) - 65
         row_index = int(position[1]) - 1
 
@@ -96,7 +96,7 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        while self.continue_east(column_index, row_index):
+        while getattr(self, 'continue_' + direction)(column_index, row_index):
             column_index += self.traversal_increments[direction]['column_increment']
             row_index += self.traversal_increments[direction]['row_increment']
 
@@ -106,170 +106,6 @@ class Reversi():
             elif self.piece_at(column_index, row_index) != '-':
                 opposite_color_count += 1
         if color == self.piece_at(column_index, row_index) and opposite_color_count >= 1:
-            return True
-
-        return False
-
-    def does_west_traversal_allow_valid_move(self, direction, color, position):
-        column_index = ord(position[0]) - 65
-        row_index = int(position[1]) - 1
-
-        if self.too_close_to_edge(direction, column_index, row_index):
-            return False
-
-        opposite_color_count = 0
-        while self.continue_west(column_index, row_index):
-            column_index += self.traversal_increments[direction]['column_increment']
-            row_index += self.traversal_increments[direction]['row_increment']
-
-            if (color == self.piece_at(column_index, row_index) or
-                    self.piece_at(column_index, row_index) == '-'):
-                break
-            elif self.piece_at(column_index, row_index) != '-':
-                opposite_color_count += 1
-
-        if color == self.piece_at(column_index, row_index) and opposite_color_count >= 1:
-            return True
-
-        return False
-
-    def does_north_traversal_allow_valid_move(self, direction, color, position):
-        column_index = ord(position[0]) - 65
-        row_index  = int(position[1]) - 1
-
-        if self.too_close_to_edge(direction, column_index, row_index):
-            return False
-
-        opposite_color_count = 0
-        while self.continue_north(column_index, row_index):
-            column_index += self.traversal_increments[direction]['column_increment']
-            row_index += self.traversal_increments[direction]['row_increment']
-
-            if color == self.piece_at(column_index, row_index) or self.piece_at(column_index, row_index) == '-':
-                break
-            elif self.piece_at(column_index, row_index) != '-':
-                opposite_color_count += 1
-
-        if color == self.piece_at(column_index, row_index) and opposite_color_count >= 1:
-            return True
-
-        return False
-
-    def does_south_traversal_allow_valid_move(self, direction, color, position):
-        column_index = ord(position[0]) - 65
-        row_index = int(position[1]) - 1
-
-        if self.too_close_to_edge(direction, column_index, row_index):
-            return False
-
-        opposite_color_count = 0
-        while self.continue_south(column_index, row_index):
-            column_index += self.traversal_increments[direction]['column_increment']
-            row_index += self.traversal_increments[direction]['row_increment']
-
-            if (color == self.piece_at(column_index, row_index) or
-                    self.piece_at(column_index, row_index) == '-'):
-                break
-            elif self.piece_at(column_index, row_index) != '-':
-                opposite_color_count += 1
-
-        if color == self.piece_at(column_index, row_index) and opposite_color_count >= 1:
-            return True
-
-        return False
-
-    def does_north_east_traversal_allow_valid_move(self, direction, color, position):
-        column_index = ord(position[0]) - 65
-        row_index = int(position[1]) - 1
-
-        if self.too_close_to_edge(direction, column_index, row_index):
-            return False
-
-        opposite_color_count = 0
-        while self.continue_north_east(column_index, row_index):
-            column_index += self.traversal_increments[direction]['column_increment']
-            row_index += self.traversal_increments[direction]['row_increment']
-
-            if (color == self.piece_at(column_index, row_index) or
-                    self.piece_at(column_index, row_index) == '-'):
-                break
-            elif self.piece_at(column_index, row_index) != '-':
-                opposite_color_count += 1
-
-        if (color == self.piece_at(column_index, row_index) and
-                opposite_color_count >= 1):
-            return True
-
-        return False
-
-    def does_north_west_traversal_allow_valid_move(self, direction, color, position):
-        column_index = ord(position[0]) - 65
-        row_index = int(position[1]) - 1
-
-        if self.too_close_to_edge(direction, column_index, row_index):
-            return False
-
-        opposite_color_count = 0
-        while self.continue_north_west(column_index, row_index):
-            column_index += self.traversal_increments[direction]['column_increment']
-            row_index += self.traversal_increments[direction]['row_increment']
-
-            if (color == self.piece_at(column_index, row_index) or
-                    self.piece_at(column_index, row_index) == '-'):
-                break
-            elif self.piece_at(column_index, row_index) != '-':
-                opposite_color_count += 1
-
-        if (color == self.piece_at(column_index, row_index) and
-                opposite_color_count >= 1):
-            return True
-
-        return False
-
-    def does_south_west_traversal_allow_valid_move(self, direction, color, position):
-        column_index = ord(position[0]) - 65
-        row_index = int(position[1]) - 1
-
-        if self.too_close_to_edge(direction, column_index, row_index):
-            return False
-
-        opposite_color_count = 0
-        while self.continue_south_west(column_index, row_index):
-            column_index += self.traversal_increments[direction]['column_increment']
-            row_index += self.traversal_increments[direction]['row_increment']
-
-            if (color == self.piece_at(column_index, row_index) or
-                    self.piece_at(column_index, row_index) == '-'):
-                break
-            elif self.piece_at(column_index, row_index) != '-':
-                opposite_color_count += 1
-
-        if (color == self.piece_at(column_index, row_index) and
-                opposite_color_count >= 1):
-            return True
-
-        return False
-
-    def does_south_east_traversal_allow_valid_move(self, direction, color, position):
-        column_index = ord(position[0]) - 65
-        row_index = int(position[1]) - 1
-
-        if self.too_close_to_edge(direction, column_index, row_index):
-            return False
-
-        opposite_color_count = 0
-        while self.continue_south_east(column_index, row_index):
-            column_index += self.traversal_increments[direction]['column_increment']
-            row_index += self.traversal_increments[direction]['row_increment']
-
-            if (color == self.piece_at(column_index, row_index) or
-                    self.piece_at(column_index, row_index) == '-'):
-                break
-            elif self.piece_at(column_index, row_index) != '-':
-                opposite_color_count += 1
-
-        if (color == self.piece_at(column_index, row_index) and
-                opposite_color_count >= 1):
             return True
 
         return False
@@ -278,11 +114,11 @@ class Reversi():
         if self.board[position[0]][int(position[1])] != '-':
             return False
 
-        return (self.does_north_traversal_allow_valid_move('north', color, position) or
-                self.does_north_east_traversal_allow_valid_move('north-east', color, position) or
-                self.does_east_traversal_allow_valid_move('east', color, position) or
-                self.does_south_east_traversal_allow_valid_move('south-east', color, position) or
-                self.does_south_traversal_allow_valid_move('south', color, position) or
-                self.does_south_west_traversal_allow_valid_move('south-west', color, position) or
-                self.does_west_traversal_allow_valid_move('west', color, position) or
-                self.does_north_west_traversal_allow_valid_move('north-west', color, position))
+        return (self.is_traversal_valid_for('north', color, position) or
+                self.is_traversal_valid_for('north_east', color, position) or
+                self.is_traversal_valid_for('east', color, position) or
+                self.is_traversal_valid_for('south_east', color, position) or
+                self.is_traversal_valid_for('south', color, position) or
+                self.is_traversal_valid_for('south_west', color, position) or
+                self.is_traversal_valid_for('west', color, position) or
+                self.is_traversal_valid_for('north_west', color, position))
