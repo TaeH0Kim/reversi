@@ -36,6 +36,15 @@ class Reversi():
 
         return True
 
+    def col_key(self, n):
+        return chr(n + 65)
+
+    def row_key(self, n):
+        return n + 1;
+
+    def piece_at(self, column_index, row_index):
+        return self.board[self.col_key(column_index)][self.row_key(row_index)]
+
     def does_east_traversal_allow_valid_move(self, color, position):
         column_index = ord(position[0]) - 65
         row_index = int(position[1]) - 1
@@ -45,12 +54,12 @@ class Reversi():
 
         opposite_color_count = 0
         for i in range(column_index + 1, 8):
-            if (color == self.board[chr(i + 65)][row_index + 1] or
-                    self.board[chr(i + 65)][row_index + 1] == '-'):
+            if (color == self.piece_at(i, row_index) or
+                    self.piece_at(i, row_index) == '-'):
                 break
-            elif self.board[chr(i + 65)][row_index + 1] != '-':
+            elif self.piece_at(i, row_index) != '-':
                 opposite_color_count += 1
-        if color == self.board[chr(i + 65)][row_index + 1] and opposite_color_count >= 1:
+        if color == self.piece_at(i, row_index) and opposite_color_count >= 1:
             return True
 
         return False
@@ -64,13 +73,13 @@ class Reversi():
 
         opposite_color_count = 0
         for i in range(column_index - 1, -1, -1):
-            if (color == self.board[chr(i + 65)][row_index + 1] or
-                    self.board[chr(i + 65)][row_index + 1] == '-'):
+            if (color == self.piece_at(i, row_index) or
+                    self.piece_at(i, row_index) == '-'):
                 break
-            elif self.board[chr(i + 65)][row_index + 1] != '-':
+            elif self.piece_at(i, row_index) != '-':
                 opposite_color_count += 1
 
-        if color == self.board[chr(i + 65)][row_index + 1] and opposite_color_count >= 1:
+        if color == self.piece_at(i, row_index) and opposite_color_count >= 1:
             return True
 
         return False
@@ -79,17 +88,17 @@ class Reversi():
         column_index = ord(position[0]) - 65
         row_index  = int(position[1]) - 1
 
-        if row_index <= 0:
+        if row_index <= 1:
             return False
 
         opposite_color_count = 0
-        for i in range(row_index, 0, -1):
-            if color == self.board[chr(column_index + 65)][i] or self.board[chr(column_index + 65)][i] == '-':
+        for i in range(row_index - 1, 0, -1):
+            if color == self.piece_at(column_index, i) or self.piece_at(column_index, i) == '-':
                 break
-            elif self.board[chr(column_index + 65)][i] != '-':
+            elif self.piece_at(column_index, i) != '-':
                 opposite_color_count += 1
 
-        if color == self.board[chr(column_index + 65)][i] and opposite_color_count >= 1:
+        if color == self.piece_at(column_index, i) and opposite_color_count >= 1:
             return True
 
         return False
@@ -102,14 +111,14 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        for i in range(row_index + 2, 9):
-            if (color == self.board[chr(column_index + 65)][i] or
-                    self.board[chr(column_index + 65)][i] == '-'):
+        for i in range(row_index + 1, 9):
+            if (color == self.piece_at(column_index, i) or
+                    self.piece_at(column_index, i) == '-'):
                 break
-            elif self.board[chr(column_index + 65)][i] != '-':
+            elif self.piece_at(column_index, i) != '-':
                 opposite_color_count += 1
 
-        if color == self.board[chr(column_index + 65)][i] and opposite_color_count >= 1:
+        if color == self.piece_at(column_index, i) and opposite_color_count >= 1:
             return True
 
         return False
@@ -128,13 +137,13 @@ class Reversi():
             row_position -= 1
             column_position += 1
 
-            if (color == self.board[chr(column_position + 65)][row_position+1] or
-                    self.board[chr(column_position + 65)][row_position+1] == '-'):
+            if (color == self.piece_at(column_position, row_position) or
+                    self.piece_at(column_position, row_position) == '-'):
                 break
-            elif self.board[chr(column_position + 65)][row_position + 1] != '-':
+            elif self.piece_at(column_position, row_position) != '-':
                 opposite_color_count += 1
 
-        if (color == self.board[chr(column_position + 65)][row_position + 1] and
+        if (color == self.piece_at(column_position, row_position) and
                 opposite_color_count >= 1):
             return True
 
@@ -154,13 +163,13 @@ class Reversi():
             row_position -= 1
             column_position -= 1
 
-            if (color == self.board[chr(column_position + 65)][row_position + 1] or
-                    self.board[chr(column_position + 65)][row_position + 1] == '-'):
+            if (color == self.piece_at(column_position, row_position) or
+                    self.piece_at(column_position, row_position) == '-'):
                 break
-            elif self.board[chr(column_position + 65)][row_position + 1] != '-':
+            elif self.piece_at(column_position, row_position) != '-':
                 opposite_color_count += 1
 
-        if (color == self.board[chr(column_position + 65)][row_position + 1] and
+        if (color == self.piece_at(column_position, row_position) and
                 opposite_color_count >= 1):
             return True
 
@@ -180,13 +189,13 @@ class Reversi():
             row_position += 1
             column_position -= 1
 
-            if (color == self.board[chr(column_position + 65)][row_position + 1] or
-                    self.board[chr(column_position + 65)][row_position + 1] == '-'):
+            if (color == self.piece_at(column_position, row_position) or
+                    self.piece_at(column_position, row_position) == '-'):
                 break
-            elif self.board[chr(column_position + 65)][row_position + 1] != '-':
+            elif self.piece_at(column_position, row_position) != '-':
                 opposite_color_count += 1
 
-        if (color == self.board[chr(column_position + 65)][row_position + 1] and
+        if (color == self.piece_at(column_position, row_position) and
                 opposite_color_count >= 1):
             return True
 
@@ -206,13 +215,13 @@ class Reversi():
             row_position += 1
             column_position += 1
 
-            if (color == self.board[chr(column_position + 65)][row_position + 1] or
-                    self.board[chr(column_position + 65)][row_position + 1] == '-'):
+            if (color == self.piece_at(column_position, row_position) or
+                    self.piece_at(column_position, row_position) == '-'):
                 break
-            elif self.board[chr(column_position + 65)][row_position + 1] != '-':
+            elif self.piece_at(column_position, row_position) != '-':
                 opposite_color_count += 1
 
-        if (color == self.board[chr(column_position + 65)][row_position + 1] and
+        if (color == self.piece_at(column_position, row_position) and
                 opposite_color_count >= 1):
             return True
 
