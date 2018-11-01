@@ -130,20 +130,18 @@ class Reversi():
         if column_index >= 7 or row_index <= 0:
             return False
 
-        column_position = column_index
-        row_position = row_index
         opposite_color_count = 0
-        while column_position < 7 and row_position > 0:
-            row_position -= 1
-            column_position += 1
+        while column_index < 7 and row_index > 0:
+            row_index -= 1
+            column_index += 1
 
-            if (color == self.piece_at(column_position, row_position) or
-                    self.piece_at(column_position, row_position) == '-'):
+            if (color == self.piece_at(column_index, row_index) or
+                    self.piece_at(column_index, row_index) == '-'):
                 break
-            elif self.piece_at(column_position, row_position) != '-':
+            elif self.piece_at(column_index, row_index) != '-':
                 opposite_color_count += 1
 
-        if (color == self.piece_at(column_position, row_position) and
+        if (color == self.piece_at(column_index, row_index) and
                 opposite_color_count >= 1):
             return True
 
@@ -156,20 +154,18 @@ class Reversi():
         if column_index <= 0 or row_index <= 0:
             return False
 
-        column_position = column_index
-        row_position = row_index
         opposite_color_count = 0
-        while column_position > 0 and row_position > 0:
-            row_position -= 1
-            column_position -= 1
+        while column_index > 0 and row_index > 0:
+            row_index -= 1
+            column_index -= 1
 
-            if (color == self.piece_at(column_position, row_position) or
-                    self.piece_at(column_position, row_position) == '-'):
+            if (color == self.piece_at(column_index, row_index) or
+                    self.piece_at(column_index, row_index) == '-'):
                 break
-            elif self.piece_at(column_position, row_position) != '-':
+            elif self.piece_at(column_index, row_index) != '-':
                 opposite_color_count += 1
 
-        if (color == self.piece_at(column_position, row_position) and
+        if (color == self.piece_at(column_index, row_index) and
                 opposite_color_count >= 1):
             return True
 
@@ -182,20 +178,18 @@ class Reversi():
         if column_index <= 0 or row_index >= 7:
             return False
 
-        column_position = column_index
-        row_position = row_index
         opposite_color_count = 0
-        while column_position > 0 and row_position < 7:
-            row_position += 1
-            column_position -= 1
+        while column_index > 0 and row_index < 7:
+            row_index += 1
+            column_index -= 1
 
-            if (color == self.piece_at(column_position, row_position) or
-                    self.piece_at(column_position, row_position) == '-'):
+            if (color == self.piece_at(column_index, row_index) or
+                    self.piece_at(column_index, row_index) == '-'):
                 break
-            elif self.piece_at(column_position, row_position) != '-':
+            elif self.piece_at(column_index, row_index) != '-':
                 opposite_color_count += 1
 
-        if (color == self.piece_at(column_position, row_position) and
+        if (color == self.piece_at(column_index, row_index) and
                 opposite_color_count >= 1):
             return True
 
@@ -208,20 +202,18 @@ class Reversi():
         if column_index >= 7 or row_index >= 7:
             return False
 
-        column_position = column_index
-        row_position = row_index
         opposite_color_count = 0
-        while column_position < 7 and row_position < 7:
-            row_position += 1
-            column_position += 1
+        while column_index < 7 and row_index < 7:
+            row_index += 1
+            column_index += 1
 
-            if (color == self.piece_at(column_position, row_position) or
-                    self.piece_at(column_position, row_position) == '-'):
+            if (color == self.piece_at(column_index, row_index) or
+                    self.piece_at(column_index, row_index) == '-'):
                 break
-            elif self.piece_at(column_position, row_position) != '-':
+            elif self.piece_at(column_index, row_index) != '-':
                 opposite_color_count += 1
 
-        if (color == self.piece_at(column_position, row_position) and
+        if (color == self.piece_at(column_index, row_index) and
                 opposite_color_count >= 1):
             return True
 
