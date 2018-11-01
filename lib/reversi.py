@@ -53,13 +53,15 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        for i in range(column_index + 1, 8):
-            if (color == self.piece_at(i, row_index) or
-                    self.piece_at(i, row_index) == '-'):
+        while column_index < 8:
+            column_index += 1
+
+            if (color == self.piece_at(column_index, row_index) or
+                    self.piece_at(column_index, row_index) == '-'):
                 break
-            elif self.piece_at(i, row_index) != '-':
+            elif self.piece_at(column_index, row_index) != '-':
                 opposite_color_count += 1
-        if color == self.piece_at(i, row_index) and opposite_color_count >= 1:
+        if color == self.piece_at(column_index, row_index) and opposite_color_count >= 1:
             return True
 
         return False
@@ -72,14 +74,16 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        for i in range(column_index - 1, -1, -1):
-            if (color == self.piece_at(i, row_index) or
-                    self.piece_at(i, row_index) == '-'):
+        while column_index > -1:
+            column_index -= 1
+
+            if (color == self.piece_at(column_index, row_index) or
+                    self.piece_at(column_index, row_index) == '-'):
                 break
-            elif self.piece_at(i, row_index) != '-':
+            elif self.piece_at(column_index, row_index) != '-':
                 opposite_color_count += 1
 
-        if color == self.piece_at(i, row_index) and opposite_color_count >= 1:
+        if color == self.piece_at(column_index, row_index) and opposite_color_count >= 1:
             return True
 
         return False
@@ -92,13 +96,15 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        for i in range(row_index - 1, 0, -1):
-            if color == self.piece_at(column_index, i) or self.piece_at(column_index, i) == '-':
+        while row_index > 0:
+            row_index -= 1
+
+            if color == self.piece_at(column_index, row_index) or self.piece_at(column_index, row_index) == '-':
                 break
-            elif self.piece_at(column_index, i) != '-':
+            elif self.piece_at(column_index, row_index) != '-':
                 opposite_color_count += 1
 
-        if color == self.piece_at(column_index, i) and opposite_color_count >= 1:
+        if color == self.piece_at(column_index, row_index) and opposite_color_count >= 1:
             return True
 
         return False
@@ -111,14 +117,16 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        for i in range(row_index + 1, 9):
-            if (color == self.piece_at(column_index, i) or
-                    self.piece_at(column_index, i) == '-'):
+        while row_index < 9:
+            row_index += 1
+
+            if (color == self.piece_at(column_index, row_index) or
+                    self.piece_at(column_index, row_index) == '-'):
                 break
-            elif self.piece_at(column_index, i) != '-':
+            elif self.piece_at(column_index, row_index) != '-':
                 opposite_color_count += 1
 
-        if color == self.piece_at(column_index, i) and opposite_color_count >= 1:
+        if color == self.piece_at(column_index, row_index) and opposite_color_count >= 1:
             return True
 
         return False
