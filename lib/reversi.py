@@ -22,6 +22,16 @@ class Reversi():
                 board[column_letter][i + 1] = cell
         self.board = board
         self.player = 'b'
+        self.traversal_increments = {
+                'east':       {'row_increment':  0, 'column_increment':  1},
+                'west':       {'row_increment':  0, 'column_increment': -1},
+                'north':      {'row_increment': -1, 'column_increment':  0},
+                'south':      {'row_increment':  1, 'column_increment':  0},
+                'north-east': {'row_increment': -1, 'column_increment':  1},
+                'north-west': {'row_increment': -1, 'column_increment': -1},
+                'south-west': {'row_increment':  1, 'column_increment': -1},
+                'south-east': {'row_increment':  1, 'column_increment':  1},
+            }
 
     def move(self, position):
         column = position[0]
@@ -87,7 +97,8 @@ class Reversi():
 
         opposite_color_count = 0
         while self.continue_east(column_index, row_index):
-            column_index += 1
+            column_index += self.traversal_increments[direction]['column_increment']
+            row_index += self.traversal_increments[direction]['row_increment']
 
             if (color == self.piece_at(column_index, row_index) or
                     self.piece_at(column_index, row_index) == '-'):
@@ -108,7 +119,8 @@ class Reversi():
 
         opposite_color_count = 0
         while self.continue_west(column_index, row_index):
-            column_index -= 1
+            column_index += self.traversal_increments[direction]['column_increment']
+            row_index += self.traversal_increments[direction]['row_increment']
 
             if (color == self.piece_at(column_index, row_index) or
                     self.piece_at(column_index, row_index) == '-'):
@@ -130,7 +142,8 @@ class Reversi():
 
         opposite_color_count = 0
         while self.continue_north(column_index, row_index):
-            row_index -= 1
+            column_index += self.traversal_increments[direction]['column_increment']
+            row_index += self.traversal_increments[direction]['row_increment']
 
             if color == self.piece_at(column_index, row_index) or self.piece_at(column_index, row_index) == '-':
                 break
@@ -151,7 +164,8 @@ class Reversi():
 
         opposite_color_count = 0
         while self.continue_south(column_index, row_index):
-            row_index += 1
+            column_index += self.traversal_increments[direction]['column_increment']
+            row_index += self.traversal_increments[direction]['row_increment']
 
             if (color == self.piece_at(column_index, row_index) or
                     self.piece_at(column_index, row_index) == '-'):
@@ -173,8 +187,8 @@ class Reversi():
 
         opposite_color_count = 0
         while self.continue_north_east(column_index, row_index):
-            row_index -= 1
-            column_index += 1
+            column_index += self.traversal_increments[direction]['column_increment']
+            row_index += self.traversal_increments[direction]['row_increment']
 
             if (color == self.piece_at(column_index, row_index) or
                     self.piece_at(column_index, row_index) == '-'):
@@ -197,8 +211,8 @@ class Reversi():
 
         opposite_color_count = 0
         while self.continue_north_west(column_index, row_index):
-            row_index -= 1
-            column_index -= 1
+            column_index += self.traversal_increments[direction]['column_increment']
+            row_index += self.traversal_increments[direction]['row_increment']
 
             if (color == self.piece_at(column_index, row_index) or
                     self.piece_at(column_index, row_index) == '-'):
@@ -221,8 +235,8 @@ class Reversi():
 
         opposite_color_count = 0
         while self.continue_south_west(column_index, row_index):
-            row_index += 1
-            column_index -= 1
+            column_index += self.traversal_increments[direction]['column_increment']
+            row_index += self.traversal_increments[direction]['row_increment']
 
             if (color == self.piece_at(column_index, row_index) or
                     self.piece_at(column_index, row_index) == '-'):
@@ -245,8 +259,8 @@ class Reversi():
 
         opposite_color_count = 0
         while self.continue_south_east(column_index, row_index):
-            row_index += 1
-            column_index += 1
+            column_index += self.traversal_increments[direction]['column_increment']
+            row_index += self.traversal_increments[direction]['row_increment']
 
             if (color == self.piece_at(column_index, row_index) or
                     self.piece_at(column_index, row_index) == '-'):
