@@ -37,88 +37,85 @@ class Reversi():
         return True
 
     def does_east_traversal_allow_valid_move(self, color, position):
-        column = position[0]
-        column_index = ord(column) - 65
-        row = int(position[1])
+        column_index = ord(position[0]) - 65
+        row_index = int(position[1]) - 1
 
         if column_index >= 7:
             return False
 
         opposite_color_count = 0
-        for i in range(column_index+1, 8):
-            if (color == self.board[chr(i + 65)][row] or
-                    self.board[chr(i + 65)][row] == '-'):
+        for i in range(column_index + 1, 8):
+            if (color == self.board[chr(i + 65)][row_index + 1] or
+                    self.board[chr(i + 65)][row_index + 1] == '-'):
                 break
-            elif self.board[chr(i + 65)][row] != '-':
+            elif self.board[chr(i + 65)][row_index + 1] != '-':
                 opposite_color_count += 1
-        if color == self.board[chr(i + 65)][row] and opposite_color_count >= 1:
+        if color == self.board[chr(i + 65)][row_index + 1] and opposite_color_count >= 1:
             return True
 
         return False
 
     def does_west_traversal_allow_valid_move(self, color, position):
-        column = position[0]
-        column_index = ord(column) - 65
-        row = int(position[1])
+        column_index = ord(position[0]) - 65
+        row_index = int(position[1]) - 1
 
         if column_index <= 0:
             return False
 
         opposite_color_count = 0
-        for i in range(column_index-1, -1, -1):
-            if (color == self.board[chr(i + 65)][row] or
-                    self.board[chr(i + 65)][row] == '-'):
+        for i in range(column_index - 1, -1, -1):
+            if (color == self.board[chr(i + 65)][row_index + 1] or
+                    self.board[chr(i + 65)][row_index + 1] == '-'):
                 break
-            elif self.board[chr(i + 65)][row] != '-':
+            elif self.board[chr(i + 65)][row_index + 1] != '-':
                 opposite_color_count += 1
 
-        if color == self.board[chr(i + 65)][row] and opposite_color_count >= 1:
+        if color == self.board[chr(i + 65)][row_index + 1] and opposite_color_count >= 1:
             return True
 
         return False
 
     def does_north_traversal_allow_valid_move(self, color, position):
-        column = position[0]
-        row = int(position[1])
+        column_index = ord(position[0]) - 65
+        row_index  = int(position[1]) - 1
 
-        if row <= 1:
+        if row_index <= 0:
             return False
 
         opposite_color_count = 0
-        for i in range(row-1, 0, -1):
-            if color == self.board[column][i] or self.board[column][i] == '-':
+        for i in range(row_index, 0, -1):
+            if color == self.board[chr(column_index + 65)][i] or self.board[chr(column_index + 65)][i] == '-':
                 break
-            elif self.board[column][i] != '-':
+            elif self.board[chr(column_index + 65)][i] != '-':
                 opposite_color_count += 1
 
-        if color == self.board[column][i] and opposite_color_count >= 1:
+        if color == self.board[chr(column_index + 65)][i] and opposite_color_count >= 1:
             return True
 
         return False
 
     def does_south_traversal_allow_valid_move(self, color, position):
-        column = position[0]
-        row = int(position[1])
+        column_index = ord(position[0]) - 65
+        row_index = int(position[1]) - 1
 
-        if row >= 8:
+        if row_index >= 7:
             return False
 
         opposite_color_count = 0
-        for i in range(row+1, 9):
-            if (color == self.board[column][i] or
-                    self.board[column][i] == '-'):
+        for i in range(row_index + 2, 9):
+            if (color == self.board[chr(column_index + 65)][i] or
+                    self.board[chr(column_index + 65)][i] == '-'):
                 break
-            elif self.board[column][i] != '-':
+            elif self.board[chr(column_index + 65)][i] != '-':
                 opposite_color_count += 1
 
-        if color == self.board[column][i] and opposite_color_count >= 1:
+        if color == self.board[chr(column_index + 65)][i] and opposite_color_count >= 1:
             return True
 
         return False
 
     def does_north_east_traversal_allow_valid_move(self, color, position):
-        column = position[0]
-        column_index = ord(column) - 65
+        column_index = ord(position[0]) - 65
         row_index = int(position[1]) - 1
 
         if column_index >= 7 or row_index <= 0:
@@ -134,18 +131,17 @@ class Reversi():
             if (color == self.board[chr(column_position + 65)][row_position+1] or
                     self.board[chr(column_position + 65)][row_position+1] == '-'):
                 break
-            elif self.board[chr(column_position + 65)][row_position+1] != '-':
+            elif self.board[chr(column_position + 65)][row_position + 1] != '-':
                 opposite_color_count += 1
 
-        if (color == self.board[chr(column_position + 65)][row_position+1] and
+        if (color == self.board[chr(column_position + 65)][row_position + 1] and
                 opposite_color_count >= 1):
             return True
 
         return False
 
     def does_north_west_traversal_allow_valid_move(self, color, position):
-        column = position[0]
-        column_index = ord(column) - 65
+        column_index = ord(position[0]) - 65
         row_index = int(position[1]) - 1
 
         if column_index <= 0 or row_index <= 0:
@@ -158,13 +154,13 @@ class Reversi():
             row_position -= 1
             column_position -= 1
 
-            if (color == self.board[chr(column_position + 65)][row_position+1] or
-                    self.board[chr(column_position + 65)][row_position+1] == '-'):
+            if (color == self.board[chr(column_position + 65)][row_position + 1] or
+                    self.board[chr(column_position + 65)][row_position + 1] == '-'):
                 break
-            elif self.board[chr(column_position + 65)][row_position+1] != '-':
+            elif self.board[chr(column_position + 65)][row_position + 1] != '-':
                 opposite_color_count += 1
 
-        if (color == self.board[chr(column_position + 65)][row_position+1] and
+        if (color == self.board[chr(column_position + 65)][row_position + 1] and
                 opposite_color_count >= 1):
             return True
 
@@ -184,13 +180,13 @@ class Reversi():
             row_position += 1
             column_position -= 1
 
-            if (color == self.board[chr(column_position + 65)][row_position+1] or
-                    self.board[chr(column_position + 65)][row_position+1] == '-'):
+            if (color == self.board[chr(column_position + 65)][row_position + 1] or
+                    self.board[chr(column_position + 65)][row_position + 1] == '-'):
                 break
-            elif self.board[chr(column_position + 65)][row_position+1] != '-':
+            elif self.board[chr(column_position + 65)][row_position + 1] != '-':
                 opposite_color_count += 1
 
-        if (color == self.board[chr(column_position + 65)][row_position+1] and
+        if (color == self.board[chr(column_position + 65)][row_position + 1] and
                 opposite_color_count >= 1):
             return True
 
@@ -210,13 +206,13 @@ class Reversi():
             row_position += 1
             column_position += 1
 
-            if (color == self.board[chr(column_position + 65)][row_position+1] or
-                    self.board[chr(column_position + 65)][row_position+1] == '-'):
+            if (color == self.board[chr(column_position + 65)][row_position + 1] or
+                    self.board[chr(column_position + 65)][row_position + 1] == '-'):
                 break
-            elif self.board[chr(column_position + 65)][row_position+1] != '-':
+            elif self.board[chr(column_position + 65)][row_position + 1] != '-':
                 opposite_color_count += 1
 
-        if (color == self.board[chr(column_position + 65)][row_position+1] and
+        if (color == self.board[chr(column_position + 65)][row_position + 1] and
                 opposite_color_count >= 1):
             return True
 
