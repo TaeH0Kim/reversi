@@ -45,6 +45,30 @@ class Reversi():
     def piece_at(self, column_index, row_index):
         return self.board[self.col_key(column_index)][self.row_key(row_index)]
 
+    def continue_east(self, col, row):
+        return col < 8
+
+    def continue_west(self, col, row):
+        return col > -1
+
+    def continue_north(self, col, row):
+        return row > 0
+
+    def continue_south(self, col, row):
+        return row < 9
+
+    def continue_north_east(self, col, row):
+        return col < 7 and row > 0
+
+    def continue_north_west(self, col, row):
+        return col > 0 and row > 0
+
+    def continue_south_west(self, col, row):
+        return col > 0 and row < 7
+
+    def continue_south_east(self, col, row):
+        return col < 7 and row < 7
+
     def does_east_traversal_allow_valid_move(self, color, position):
         column_index = ord(position[0]) - 65
         row_index = int(position[1]) - 1
@@ -53,7 +77,7 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        while column_index < 8:
+        while self.continue_east(column_index, row_index):
             column_index += 1
 
             if (color == self.piece_at(column_index, row_index) or
@@ -74,7 +98,7 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        while column_index > -1:
+        while self.continue_west(column_index, row_index):
             column_index -= 1
 
             if (color == self.piece_at(column_index, row_index) or
@@ -96,7 +120,7 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        while row_index > 0:
+        while self.continue_north(column_index, row_index):
             row_index -= 1
 
             if color == self.piece_at(column_index, row_index) or self.piece_at(column_index, row_index) == '-':
@@ -117,7 +141,7 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        while row_index < 9:
+        while self.continue_south(column_index, row_index):
             row_index += 1
 
             if (color == self.piece_at(column_index, row_index) or
@@ -139,7 +163,7 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        while column_index < 7 and row_index > 0:
+        while self.continue_north_east(column_index, row_index):
             row_index -= 1
             column_index += 1
 
@@ -163,7 +187,7 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        while column_index > 0 and row_index > 0:
+        while self.continue_north_west(column_index, row_index):
             row_index -= 1
             column_index -= 1
 
@@ -187,7 +211,7 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        while column_index > 0 and row_index < 7:
+        while self.continue_south_west(column_index, row_index):
             row_index += 1
             column_index -= 1
 
@@ -211,7 +235,7 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        while column_index < 7 and row_index < 7:
+        while self.continue_south_east(column_index, row_index):
             row_index += 1
             column_index += 1
 
