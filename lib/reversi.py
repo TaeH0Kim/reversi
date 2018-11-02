@@ -10,10 +10,7 @@ class Reversi():
             - - - - - - - -
             - - - - - - - -
             '''):
-        board = {
-            'A': {}, 'B': {}, 'C': {}, 'D': {},
-            'E': {}, 'F': {}, 'G': {}, 'H': {}
-            }
+        board = dict(A={}, B={}, C={}, D={}, E={}, F={}, G={}, H={})
         rows = board_str.strip().split("\n")
         board_ary = [i.strip().split(' ') for i in rows]
         for i, row in enumerate(board_ary):
