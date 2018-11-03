@@ -1,4 +1,4 @@
-import unittest, os, sys
+import unittest, os, sys, re
 sys.path.append(os.path.abspath('lib'))
 from reversi import Reversi
 
@@ -22,6 +22,9 @@ class TestReversi(unittest.TestCase):
         for move in invalid_moves:
             self.assertFalse(game.is_move_valid(color, move),
             'error for position: ' + move)
+
+    def strip_leading_spaces(self, string):
+        return re.sub(r'^\s+', '', string, flags=re.MULTILINE)
 
 
     def test_move_changes_player(self):
@@ -466,6 +469,80 @@ class TestReversi(unittest.TestCase):
             ''')
         self.assert_only_valid_moves(r, 'w', {'C6', 'C7', 'D8', 'F7', 'F8',
             'G4', 'G6', 'H4', 'H6'})
+
+    def test_flip_pieces(self):
+        r = Reversi('''
+            - - - - - - - -
+            - - - - - - - -
+            - - w - w - - -
+            - - w w w w - -
+            - - w b b b b b
+            - - - b b w - -
+            - - - w b - - -
+            - - w - b - - -
+            ''')
+        r.flip_pieces('south', 'b', 'D3')
+        expected_board = '''
+            - - - - - - - -
+            - - - - - - - -
+            - - w - w - - -
+            - - w b w w - -
+            - - w b b b b b
+            - - - b b w - -
+            - - - w b - - -
+            - - w - b - - -
+           '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string())
+
+        r = Reversi('''
+            - - - - - - - -
+            - - - - - - - -
+            - b b b - - - -
+            - - b b b - - -
+            - - w w w - - -
+            - - - w - - - -
+            - - - w - - - -
+            - - - - - - - -
+            ''')
+        r.flip_pieces('south_east', 'w', 'B2')
+        expected_board = '''
+            - - - - - - - -
+            - - - - - - - -
+            - b w b - - - -
+            - - b w b - - -
+            - - w w w - - -
+            - - - w - - - -
+            - - - w - - - -
+            - - - - - - - -
+            '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string())
+
+        r = Reversi('''
+            - - - b - - - -
+            - - b b - - - -
+            - b b b - - - -
+            - b b w w w w -
+            w w w w w w w w
+            w b w w w - - -
+            - - - w - - - -
+            - - - b b b - -
+            ''')
+        r.flip_pieces('north_west', 'b', 'F6')
+        r.flip_pieces('west', 'b', 'F6')
+        expected_board = '''
+            - - - b - - - -
+            - - b b - - - -
+            - b b b - - - -
+            - b b b w w w -
+            w w w w b w w w
+            w b b b b - - -
+            - - - w - - - -
+            - - - b b b - -
+            '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string())
 
 if __name__ == '__main__':
     unittest.main()

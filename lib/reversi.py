@@ -43,6 +43,15 @@ class Reversi():
 
         return True
 
+    def board_string(self):
+        string = ''
+        for i in range(1, 9):
+            str_line = ''
+            for c in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']:
+                str_line += ' ' + self.board[c][i]
+            string += str_line.strip() + "\n"
+        return string
+
     def col_key(self, n):
         return chr(n + 65)
 
@@ -119,3 +128,16 @@ class Reversi():
                 self.is_traversal_valid_for('south_west', color, position) or
                 self.is_traversal_valid_for('west', color, position) or
                 self.is_traversal_valid_for('north_west', color, position))
+
+    def flip_pieces(self, direction, color, position):
+        next_column_index = ord(position[0]) - 65
+        next_row_index = int(position[1]) - 1
+
+        next_column_index += self.traversal_increments[direction]['column_increment']
+        next_row_index += self.traversal_increments[direction]['row_increment']
+
+        while self.piece_at(next_column_index, next_row_index) != color:
+            self.board[chr(next_column_index + 65)][next_row_index + 1] = color
+
+            next_column_index += self.traversal_increments[direction]['column_increment']
+            next_row_index += self.traversal_increments[direction]['row_increment']
