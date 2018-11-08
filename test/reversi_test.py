@@ -42,6 +42,116 @@ class TestReversi(unittest.TestCase):
         r.move('B7')
         self.assertEqual(r.board['B'][7], 'w')
 
+    def test_move_flips_appropriate_pieces(self):
+        r = Reversi('''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - b w - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            ''')
+        r.move('F5') # black
+        expected_board = '''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - b b b - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
+        r.move('F6') # white
+        expected_board = '''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - b w b - -
+            - - - - - w - -
+            - - - - - - - -
+            - - - - - - - -
+            '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
+        r.move('E6') # black
+        expected_board = '''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - b b b - -
+            - - - - b w - -
+            - - - - - - - -
+            - - - - - - - -
+            '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
+        r.move('D6') # white
+        expected_board = '''
+            - - - - - - - -
+            - - - - - - - -
+            - - - - - - - -
+            - - - w b - - -
+            - - - w b b - -
+            - - - w w w - -
+            - - - - - - - -
+            - - - - - - - -
+            '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
+        r.move('C3') # black
+        expected_board = '''
+            - - - - - - - -
+            - - - - - - - -
+            - - b - - - - -
+            - - - b b - - -
+            - - - w b b - -
+            - - - w w w - -
+            - - - - - - - -
+            - - - - - - - -
+            '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
+        r.move('B2') # white
+        expected_board = '''
+            - - - - - - - -
+            - w - - - - - -
+            - - w - - - - -
+            - - - w b - - -
+            - - - w w b - -
+            - - - w w w - -
+            - - - - - - - -
+            - - - - - - - -
+            '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
+        r.move('C5') # black
+        expected_board = '''
+            - - - - - - - -
+            - w - - - - - -
+            - - w - - - - -
+            - - - w b - - -
+            - - b b b b - -
+            - - - w w w - -
+            - - - - - - - -
+            - - - - - - - -
+            '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
+
     def test_does_east_traversal_allow_valid_move(self):
         r = Reversi('''
             - - - - - - - -

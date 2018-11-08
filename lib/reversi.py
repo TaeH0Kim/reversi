@@ -29,12 +29,21 @@ class Reversi():
                 'south_west': {'row_increment':  1, 'column_increment': -1},
                 'south_east': {'row_increment':  1, 'column_increment':  1},
             }
+        self.directions = [
+                'east', 'west', 'north', 'south', 'north_east', 'north_west',
+                'south_west', 'south_east'
+                ]
+
 
     def move(self, position):
         column = position[0]
         row = int(position[1])
 
         self.board[column][row] = self.player
+
+        for direction in self.directions:
+            if self.is_traversal_valid_for(direction, self.player, position):
+                self.flip_pieces(direction, self.player, position)
 
         if self.player == 'b':
             self.player = 'w'
