@@ -142,11 +142,12 @@ class Reversi():
         next_column_index = ord(position[0]) - 65
         next_row_index = int(position[1]) - 1
 
-        next_column_index += self.traversal_increments[direction]['column_increment']
-        next_row_index += self.traversal_increments[direction]['row_increment']
-
-        while self.piece_at(next_column_index, next_row_index) != color:
-            self.board[chr(next_column_index + 65)][next_row_index + 1] = color
-
+        while True:
             next_column_index += self.traversal_increments[direction]['column_increment']
             next_row_index += self.traversal_increments[direction]['row_increment']
+
+            next_piece = self.piece_at(next_column_index, next_row_index)
+            self.board[chr(next_column_index + 65)][next_row_index + 1] = color
+
+            if next_piece == color:
+                break
