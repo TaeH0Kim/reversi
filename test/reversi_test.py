@@ -603,7 +603,8 @@ class TestReversi(unittest.TestCase):
             - - w - b - - -
            '''
         expected_board = self.strip_leading_spaces(expected_board)
-        self.assertEqual(expected_board, r.board_string())
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
 
         r = Reversi('''
             - - - - - - - -
@@ -627,7 +628,8 @@ class TestReversi(unittest.TestCase):
             - - - - - - - -
             '''
         expected_board = self.strip_leading_spaces(expected_board)
-        self.assertEqual(expected_board, r.board_string())
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
 
         r = Reversi('''
             - - - b - - - -
@@ -652,7 +654,8 @@ class TestReversi(unittest.TestCase):
             - - - b b b - -
             '''
         expected_board = self.strip_leading_spaces(expected_board)
-        self.assertEqual(expected_board, r.board_string())
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
 
 if __name__ == '__main__':
     unittest.main()
