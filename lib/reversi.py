@@ -123,8 +123,8 @@ class Reversi():
         while self.continue_traversal(direction, column, row):
             column, row = self.increment_traversal(direction, column, row)
 
-            if (color == self.piece_at(column, row) or
-                    self.piece_at(column, row) == '-'):
+            piece = self.piece_at(column, row)
+            if (color == piece or piece == '-'):
                 break
             elif self.piece_at(column, row) != '-':
                 opposite_color_count += 1
