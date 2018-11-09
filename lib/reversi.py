@@ -34,7 +34,6 @@ class Reversi():
                 'south_west', 'south_east'
             ]
 
-
     def move(self, position):
         column, row = self.indexes_from_position(position)
 
