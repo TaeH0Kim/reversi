@@ -59,6 +59,12 @@ class Reversi():
             string += str_line.strip() + "\n"
         return string
 
+    def increment_traversal(self, direction, col, row):
+        return [
+                col + self.traversal_increments[direction]['column'],
+                row + self.traversal_increments[direction]['row']
+            ]
+
     def indexes_from_position(self, position):
         return [ord(position[0]) - 65, int(position[1]) - 1]
 
@@ -115,8 +121,7 @@ class Reversi():
 
         opposite_color_count = 0
         while self.continue_traversal(direction, column, row):
-            column += self.traversal_increments[direction]['column']
-            row += self.traversal_increments[direction]['row']
+            column, row = self.increment_traversal(direction, column, row)
 
             if (color == self.piece_at(column, row) or
                     self.piece_at(column, row) == '-'):
@@ -139,14 +144,13 @@ class Reversi():
         return False
 
     def flip_pieces(self, direction, color, position):
-        next_column, next_row = self.indexes_from_position(position)
+        column, row = self.indexes_from_position(position)
 
         while True:
-            next_column += self.traversal_increments[direction]['column']
-            next_row += self.traversal_increments[direction]['row']
+            column, row = self.increment_traversal(direction, column, row)
 
-            next_piece = self.piece_at(next_column, next_row)
-            self.board[chr(next_column + 65)][next_row + 1] = color
+            next_piece = self.piece_at(column, row)
+            self.board[chr(column + 65)][row + 1] = color
 
             if next_piece == color:
                 break
