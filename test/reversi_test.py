@@ -26,7 +26,6 @@ class TestReversi(unittest.TestCase):
     def strip_leading_spaces(self, string):
         return re.sub(r'^\s+', '', string, flags=re.MULTILINE)
 
-
     def test_move_changes_player(self):
         r = Reversi()
         self.assertEqual(r.player, 'b')
