@@ -20,14 +20,14 @@ class Reversi():
         self.board = board
         self.player = 'b'
         self.traversal_increments = {
-                'east':       {'row_increment':  0, 'column_increment':  1},
-                'west':       {'row_increment':  0, 'column_increment': -1},
-                'north':      {'row_increment': -1, 'column_increment':  0},
-                'south':      {'row_increment':  1, 'column_increment':  0},
-                'north_east': {'row_increment': -1, 'column_increment':  1},
-                'north_west': {'row_increment': -1, 'column_increment': -1},
-                'south_west': {'row_increment':  1, 'column_increment': -1},
-                'south_east': {'row_increment':  1, 'column_increment':  1},
+                'east':       {'row':  0, 'column':  1},
+                'west':       {'row':  0, 'column': -1},
+                'north':      {'row': -1, 'column':  0},
+                'south':      {'row':  1, 'column':  0},
+                'north_east': {'row': -1, 'column':  1},
+                'north_west': {'row': -1, 'column': -1},
+                'south_west': {'row':  1, 'column': -1},
+                'south_east': {'row':  1, 'column':  1},
             }
         self.directions = [
                 'east', 'west', 'north', 'south', 'north_east', 'north_west',
@@ -112,8 +112,8 @@ class Reversi():
 
         opposite_color_count = 0
         while getattr(self, 'continue_' + direction)(column_index, row_index):
-            column_index += self.traversal_increments[direction]['column_increment']
-            row_index += self.traversal_increments[direction]['row_increment']
+            column_index += self.traversal_increments[direction]['column']
+            row_index += self.traversal_increments[direction]['row']
 
             if (color == self.piece_at(column_index, row_index) or
                     self.piece_at(column_index, row_index) == '-'):
@@ -140,8 +140,8 @@ class Reversi():
         next_row_index = int(position[1]) - 1
 
         while True:
-            next_column_index += self.traversal_increments[direction]['column_increment']
-            next_row_index += self.traversal_increments[direction]['row_increment']
+            next_column_index += self.traversal_increments[direction]['column']
+            next_row_index += self.traversal_increments[direction]['row']
 
             next_piece = self.piece_at(next_column_index, next_row_index)
             self.board[chr(next_column_index + 65)][next_row_index + 1] = color
