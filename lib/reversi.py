@@ -81,7 +81,7 @@ class Reversi():
         return self.board[self.col_key(column)][self.row_key(row)]
 
     def continue_east(self, col, row):
-        return col < 8
+        return col < 7
 
     def continue_west(self, col, row):
         return col > -1
@@ -90,7 +90,7 @@ class Reversi():
         return row > 0
 
     def continue_south(self, col, row):
-        return row < 9
+        return row < 7
 
     def continue_north_east(self, col, row):
         return col < 7 and row > 0

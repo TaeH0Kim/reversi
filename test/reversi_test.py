@@ -151,6 +151,58 @@ class TestReversi(unittest.TestCase):
         self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
                 expected_board + "\nActual board: \n" + r.board_string())
 
+        r = Reversi('''
+            - - - b b b - -
+            - - - - b b - -
+            - - - b b b - -
+            - - - b b b - -
+            - w w w w b - -
+            - - - b w w - -
+            - - - - b w w -
+            - - - - - - w w
+            ''')
+        r.player = 'b'
+        r.move('F8')
+        expected_board = '''
+            - - - b b b - -
+            - - - - b b - -
+            - - - b b b - -
+            - - - b b b - -
+            - w w w w b - -
+            - - - b w b - -
+            - - - - b b w -
+            - - - - - b w w
+           '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
+
+        r = Reversi('''
+            - - w b - w - -
+            - - - w b w - -
+            - - - b b w - -
+            - - - b b w - -
+            b b b b b w - -
+            - - - b b w - -
+            - - - - b w w -
+            - - - - b - w w
+            ''')
+        r.player = 'w'
+        r.move('E1')
+        expected_board = '''
+            - - w w w w - -
+            - - - w b w - -
+            - - - b b w - -
+            - - - b b w - -
+            b b b b b w - -
+            - - - b b w - -
+            - - - - b w w -
+            - - - - b - w w
+           '''
+        expected_board = self.strip_leading_spaces(expected_board)
+        self.assertEqual(expected_board, r.board_string(), "\nExpected: \n" +
+                expected_board + "\nActual board: \n" + r.board_string())
+
     def test_does_east_traversal_allow_valid_move(self):
         r = Reversi('''
             - - - - - - - -
