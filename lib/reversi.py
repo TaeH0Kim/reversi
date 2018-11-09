@@ -36,10 +36,9 @@ class Reversi():
 
 
     def move(self, position):
-        column = position[0]
-        row = int(position[1])
+        column, row = self.indexes_from_position(position)
 
-        self.board[column][row] = self.player
+        self.board[self.col_key(column)][self.row_key(row)] = self.player
 
         for direction in self.directions:
             if self.is_traversal_valid_for(direction, self.player, position):
@@ -60,6 +59,9 @@ class Reversi():
                 str_line += ' ' + self.board[c][i]
             string += str_line.strip() + "\n"
         return string
+
+    def indexes_from_position(self, position):
+        return [ord(position[0]) - 65, int(position[1]) - 1]
 
     def col_key(self, n):
         return chr(n + 65)
@@ -104,8 +106,7 @@ class Reversi():
                 direction == 'south_east' and (col >= 7 or row >= 7))
 
     def is_traversal_valid_for(self, direction, color, position):
-        column = ord(position[0]) - 65
-        row = int(position[1]) - 1
+        column, row = self.indexes_from_position(position)
 
         if self.too_close_to_edge(direction, column, row):
             return False
@@ -136,8 +137,7 @@ class Reversi():
         return False
 
     def flip_pieces(self, direction, color, position):
-        next_column = ord(position[0]) - 65
-        next_row = int(position[1]) - 1
+        next_column, next_row = self.indexes_from_position(position)
 
         while True:
             next_column += self.traversal_increments[direction]['column']
