@@ -32,7 +32,7 @@ class Reversi():
         self.directions = [
                 'east', 'west', 'north', 'south', 'north_east', 'north_west',
                 'south_west', 'south_east'
-                ]
+            ]
 
 
     def move(self, position):
