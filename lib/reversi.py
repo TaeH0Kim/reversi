@@ -1,6 +1,6 @@
 class Reversi():
 
-    def __init__(self, board_str='''
+    def __init__(self, board_string='''
             - - - - - - - -
             - - - - - - - -
             - - - - - - - -
@@ -10,14 +10,7 @@ class Reversi():
             - - - - - - - -
             - - - - - - - -
             '''):
-        board = dict(A={}, B={}, C={}, D={}, E={}, F={}, G={}, H={})
-        rows = board_str.strip().split("\n")
-        board_ary = [i.strip().split(' ') for i in rows]
-        for i, row in enumerate(board_ary):
-            for j, cell in enumerate(row):
-                column_letter = chr(j + 65)
-                board[column_letter][i + 1] = cell
-        self.board = board
+        self.board = self.parse_board(board_string)
         self.player = 'b'
         self.traversal_increments = {
                 'east':       {'row':  0, 'column':  1},
@@ -49,6 +42,16 @@ class Reversi():
             self.player = 'b'
 
         return True
+
+    def parse_board(self, board_string):
+        board = dict(A={}, B={}, C={}, D={}, E={}, F={}, G={}, H={})
+        rows = board_string.strip().split("\n")
+        board_ary = [i.strip().split(' ') for i in rows]
+        for i, row in enumerate(board_ary):
+            for j, cell in enumerate(row):
+                column_letter = chr(j + 65)
+                board[column_letter][i + 1] = cell
+        return board
 
     def board_string(self):
         string = ''
