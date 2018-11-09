@@ -129,14 +129,11 @@ class Reversi():
         if self.board[position[0]][int(position[1])] != '-':
             return False
 
-        return (self.is_traversal_valid_for('north', color, position) or
-                self.is_traversal_valid_for('north_east', color, position) or
-                self.is_traversal_valid_for('east', color, position) or
-                self.is_traversal_valid_for('south_east', color, position) or
-                self.is_traversal_valid_for('south', color, position) or
-                self.is_traversal_valid_for('south_west', color, position) or
-                self.is_traversal_valid_for('west', color, position) or
-                self.is_traversal_valid_for('north_west', color, position))
+        for direction in self.directions:
+            if self.is_traversal_valid_for(direction, color, position):
+                return True
+
+        return False
 
     def flip_pieces(self, direction, color, position):
         next_column_index = ord(position[0]) - 65
