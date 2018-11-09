@@ -67,8 +67,8 @@ class Reversi():
     def row_key(self, n):
         return n + 1;
 
-    def piece_at(self, column_index, row_index):
-        return self.board[self.col_key(column_index)][self.row_key(row_index)]
+    def piece_at(self, column, row):
+        return self.board[self.col_key(column)][self.row_key(row)]
 
     def continue_east(self, col, row):
         return col < 8
@@ -104,23 +104,23 @@ class Reversi():
                 direction == 'south_east' and (col >= 7 or row >= 7))
 
     def is_traversal_valid_for(self, direction, color, position):
-        column_index = ord(position[0]) - 65
-        row_index = int(position[1]) - 1
+        column = ord(position[0]) - 65
+        row = int(position[1]) - 1
 
-        if self.too_close_to_edge(direction, column_index, row_index):
+        if self.too_close_to_edge(direction, column, row):
             return False
 
         opposite_color_count = 0
-        while getattr(self, 'continue_' + direction)(column_index, row_index):
-            column_index += self.traversal_increments[direction]['column']
-            row_index += self.traversal_increments[direction]['row']
+        while getattr(self, 'continue_' + direction)(column, row):
+            column += self.traversal_increments[direction]['column']
+            row += self.traversal_increments[direction]['row']
 
-            if (color == self.piece_at(column_index, row_index) or
-                    self.piece_at(column_index, row_index) == '-'):
+            if (color == self.piece_at(column, row) or
+                    self.piece_at(column, row) == '-'):
                 break
-            elif self.piece_at(column_index, row_index) != '-':
+            elif self.piece_at(column, row) != '-':
                 opposite_color_count += 1
-        if color == self.piece_at(column_index, row_index) and opposite_color_count >= 1:
+        if color == self.piece_at(column, row) and opposite_color_count >= 1:
             return True
 
         return False
@@ -136,15 +136,15 @@ class Reversi():
         return False
 
     def flip_pieces(self, direction, color, position):
-        next_column_index = ord(position[0]) - 65
-        next_row_index = int(position[1]) - 1
+        next_column = ord(position[0]) - 65
+        next_row = int(position[1]) - 1
 
         while True:
-            next_column_index += self.traversal_increments[direction]['column']
-            next_row_index += self.traversal_increments[direction]['row']
+            next_column += self.traversal_increments[direction]['column']
+            next_row += self.traversal_increments[direction]['row']
 
-            next_piece = self.piece_at(next_column_index, next_row_index)
-            self.board[chr(next_column_index + 65)][next_row_index + 1] = color
+            next_piece = self.piece_at(next_column, next_row)
+            self.board[chr(next_column + 65)][next_row + 1] = color
 
             if next_piece == color:
                 break
