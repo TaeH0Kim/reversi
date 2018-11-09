@@ -12,7 +12,7 @@ class Reversi():
             '''):
         self.board = self.parse_board(board_string)
         self.player = 'b'
-        self.traversal_increments = {
+        self.directional_increments = {
                 'east':       {'row':  0, 'column':  1},
                 'west':       {'row':  0, 'column': -1},
                 'north':      {'row': -1, 'column':  0},
@@ -64,8 +64,8 @@ class Reversi():
 
     def increment_traversal(self, direction, col, row):
         return [
-                col + self.traversal_increments[direction]['column'],
-                row + self.traversal_increments[direction]['row']
+                col + self.directional_increments[direction]['column'],
+                row + self.directional_increments[direction]['row']
             ]
 
     def indexes_from_position(self, position):
