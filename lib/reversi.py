@@ -95,6 +95,9 @@ class Reversi():
     def continue_south_east(self, col, row):
         return col < 7 and row < 7
 
+    def continue_traversal(self, direction, col, row):
+        return getattr(self, 'continue_' + direction)(col, row)
+
     def too_close_to_edge(self, direction, col, row):
         return (direction == 'east'       and col >= 7 or
                 direction == 'west'       and col <= 0 or
@@ -111,7 +114,7 @@ class Reversi():
             return False
 
         opposite_color_count = 0
-        while getattr(self, 'continue_' + direction)(column, row):
+        while self.continue_traversal(direction, column, row):
             column += self.traversal_increments[direction]['column']
             row += self.traversal_increments[direction]['row']
 
