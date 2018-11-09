@@ -36,12 +36,12 @@ class Reversi():
             if self.is_traversal_valid_for(direction, self.player, position):
                 self.flip_pieces(direction, self.player, position)
 
-        if self.player == 'b':
-            self.player = 'w'
-        else:
-            self.player = 'b'
+        self.player = self.opponent()
 
         return True
+
+    def opponent(self):
+        return ({'b', 'w'} - {self.player}).pop()
 
     def parse_board(self, board_string):
         board = dict(A={}, B={}, C={}, D={}, E={}, F={}, G={}, H={})
