@@ -13,18 +13,18 @@ class Reversi():
         self.board = self.parse_board(board_string)
         self.player = 'b'
         self.directional_increments = {
-                'east':       {'row':  0, 'column':  1},
-                'west':       {'row':  0, 'column': -1},
-                'north':      {'row': -1, 'column':  0},
-                'south':      {'row':  1, 'column':  0},
-                'north_east': {'row': -1, 'column':  1},
-                'north_west': {'row': -1, 'column': -1},
-                'south_west': {'row':  1, 'column': -1},
-                'south_east': {'row':  1, 'column':  1},
+            'east':       {'row':  0, 'column':  1},
+            'west':       {'row':  0, 'column': -1},
+            'north':      {'row': -1, 'column':  0},
+            'south':      {'row':  1, 'column':  0},
+            'north_east': {'row': -1, 'column':  1},
+            'north_west': {'row': -1, 'column': -1},
+            'south_west': {'row':  1, 'column': -1},
+            'south_east': {'row':  1, 'column':  1},
             }
         self.directions = [
-                'east', 'west', 'north', 'south', 'north_east', 'north_west',
-                'south_west', 'south_east'
+            'east', 'west', 'north', 'south', 'north_east', 'north_west',
+            'south_west', 'south_east'
             ]
 
     def move(self, position):
