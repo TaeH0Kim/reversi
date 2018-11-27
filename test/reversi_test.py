@@ -295,6 +295,18 @@ class TestReversi(unittest.TestCase):
             self.assertFalse(r.is_traversal_valid_for('west', 'b', move),
             'error for position: ' + move)
 
+        r = Reversi('''
+            - - - - - - - -
+            - - - - - - - -
+            - - w b w - - -
+            - - w w b b - -
+            - - w b b w - -
+            b - b b w w - -
+            b w w w - - - -
+            b - - - - - - -
+            ''')
+        self.assertFalse(r.is_traversal_valid_for('west', 'w', 'B6'))
+
     def test_does_north_traversal_allow_valid_move(self):
 
         r = Reversi('''

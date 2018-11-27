@@ -109,7 +109,7 @@ class Reversi():
 
     def too_close_to_edge(self, direction, col, row):
         return (direction == 'east'       and col >= 7 or
-                direction == 'west'       and col <= 0 or
+                direction == 'west'       and col <= 1 or
                 direction == 'north'      and row <= 1 or
                 direction == 'south'      and row >= 7 or
                 direction == 'north_east' and (col >= 7 or row <= 0)  or
